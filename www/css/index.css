@@ -1,0 +1,17 @@
+.section-header {
+  margin-top: 20px;
+}
+/* Swipe works with mouse as well but often causes text selection. */
+#home * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.ui-page { -webkit-backface-visibility: hidden; }
+
+#intro, #startPara, #reviewPara {
+    text-align: center;
+}
