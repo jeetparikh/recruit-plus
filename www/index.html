@@ -32,21 +32,13 @@
                 <div class="ui-bar ui-bar-a">
                     <p id="intro">A comprehensive solution to our recruitment needs!</p>
                 </div>
-                <!--<div class="ui-body ui-body-a section-divider">-->
-                    <!--<div class="ui-grid-solo">-->
-                        <!--<div class="ui-block-a">-->
-                            <!--<p>Simply browse through the list of available questions that are categorised into different sections for ease of access</p>-->
-                            <!--<a data-ajax="false" href="pages/question-list.html" class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-icon-arrow-r">Browse</a>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="ui-body ui-body-b section-divider">
                     <div class="ui-grid-solo">
                         <div class="ui-block-a">
                             <p id="startPara">Start conducting a test by browsing through the questions and marking the answers based on the candidates response</p>
 
                             <!--I was unable to put an image for some silly reason, will figure it out later-->
-                            <a href="pages/page2.html" data-transition="flip" class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-icon-arrow-r"><i class = "flaticon-underline6"> Start Test</i></a>
+                            <a data-ajax="false" href="pages/question-list-for-test.html" data-transition="flip" class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-icon-arrow-r"><i class = "flaticon-underline6"> Start Test</i></a>
 
                         </div>
                     </div>
@@ -64,22 +56,20 @@
 
             <div data-role="panel" id="left-panel" data-theme="b">
                 <br/><br/>
-                <ul data-role="listview" data-inset="false" data-theme="a">
-                    <li><a href="pages/question-list.html" data-transition="flip"><i class="flaticon-list88"> Browse Questions</i></a></li>
-                    <br/>
-                    <li><a href="#add" data-transition="flip"><i class="flaticon-square181"> Add Questions</i></a></li>
-                    <br/>
-                    <li><a href="pages/About-us.html" data-transition="flip"><i class="flaticon-rounded59">About Us</i></a></li>
-                    <br/>
-                    <li><a href="#" data-transition="flip"><i class="flaticon-two385"> Review Interviewees</i></a></li>
+                <ul data-role="listview">
+                    <li data-icon="bars"><a data-ajax="false" href="pages/question-list.html" data-transition="flip">Browse Questions</a></li>
+                    <li data-icon="plus"><a href="#add" data-transition="flip">Add Questions</a></li>
+                    <li data-icon="bullets"><a href="a.html" data-transition="flip">Review Interviewers</a></li>
+                    <li data-icon="user"><a href="#" data-transition="flip">View Candidates</a></li>
+                    <li data-icon="info"><a href="pages/About-us.html" data-transition="flip">About Us</a></li>
                 </ul>
 
-                <a href="#" data-rel="close"
-                   class="ui-btn ui-corner-all ui-shadow ui-mini ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-right"></a>
+
+                <!--<a href="#" data-rel="close"-->
+                   <!--class="ui-btn ui-corner-all ui-shadow ui-mini ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-right"></a>-->
 
             </div>
-
-            <div data-theme="a" data-role="footer" data-position="fixed">
+            <div data-theme="b" data-role="footer" data-position="fixed">
                 <h1>Copyright 2015 - Juggernauts</h1>
             </div>
         </div>

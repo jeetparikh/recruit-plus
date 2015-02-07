@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" />
+
+    <script type="text/javascript" src="../library/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="../library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <title>Simplify hiring process!!</title>
+</head>
+<body>
+<div data-role="page" id="candidateDetails">
+    <div data-role="header" data-position="fixed">
+        <h1>Hiring Aid!</h1>
+        <a href="#" data-icon="back" data-rel="back" class="ui-btn-left">Back</a>
+    </div><!-- header -->
+    <div data-role="content">
+        <form id="initialForm" action="startTest.php" method="post">
+            <div data-role="fieldcontain">
+                <label for="candidateName">Candidate Name</label>
+                <input id="candidateName" name="candidateName" type="text" required placeholder="Enter Name of Candidate" />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" required placeholder="Enter Candidate's Email address " />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="position">Position</label>
+                <input id="position" name="position" type="text" required placeholder="Enter position applied for " />
+            </div>
+            <div data-role="fieldcontain">
+                <label for="interviewee">Interviewee</label>
+                <input id="interviewee" name="interviewee" type="text" required placeholder="Enter interviewee's name " />
+            </div>
+            <div id="errmsg" style="color: #f00"></div>
+            <a href="#question-list-for-test" data-role="button">Begin test!</a>
+        </form>
+    </div>
+</div>
+
+<div data-role="page" id="question-list-for-test">
+    <div data-role="header" data-position="fixed">
+        <h1>Hiring Aid!</h1>
+        <a href="#" data-icon="back" data-rel="back" class="ui-btn-left">Back</a>
+        <div data-role="tabs" id="question-types-tab">
+        </div> <!-- tabs -->
+    </div><!-- header -->
+
+    <a href="#complete-test" data-tranistion="pop" data-position-to="window" data-rel="popup" class="complete-test-icon ui-btn ui-btn-b ui-shadow ui-corner-all ui-icon-check ui-btn-icon-notext ui-btn-inline ui-nodisc-icon"></a>
+
+    <div data-role="main" class="ui-content">
+
+        <ul id="question-block" data-role="listview">
+        </ul>
+    </div><!-- main -->
+    <div data-role="popup" id="complete-test" data-overlay-theme="b" data-theme="b">
+        <form data-ajax="false" id="form-submit-test">
+            <div role="main" class="ui-content">
+                <p>Complete the test and submit score?</p>
+                <button id="submit-test-button" class="ui-btn ui-mini ui-shadow ui-corner-all ui-btn-icon-left ui-icon-check ui-btn-inline">Complete</button>
+                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+            </div>
+        </form>
+    </div>
+    <div data-role="footer" data-position="fixed" data-theme="b">
+        <div data-role="navbar">
+            <ul>
+                <li>
+                    <a href="#filter-panel" class="ui-btn ui-btn-icon-top ui-icon-search">Filter</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- panel for filter -->
+    <div data-role="panel" id="filter-panel" data-display="overlay">
+        <!-- panel content goes here -->
+        <form>
+            <fieldset data-role="collapsible" data-inset="false" data-collapsed="false">
+                <legend>Level</legend>
+                <div data-role="controlgroup" id="primary-filter-block" data-mini="true">
+
+                </div>
+            </fieldset>
+            <button class="ui-btn ui-btn-corner-all ui-mini" id="apply-filter">Apply</button>
+        </form>
+    </div>
+    <!-- panel ends -->
+</div>
+<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../js/question-list-for-test.js"></script>
+</body>
+</html>

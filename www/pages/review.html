@@ -2,53 +2,63 @@
 <html>
 <head>
     <title></title>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
 
 
-    <link rel="stylesheet" type="text/css" href="/www/library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="/www/library/material-design/flaticon.css">
-    <link rel="stylesheet" type="text/css" href="/www/css/index.css" />
-    <link rel="stylesheet" href="/www/css/main.css">
-    <script type="text/javascript" src="/www/library/jquery-1.11.2.js"></script>
-    <script type="text/javascript" src="/www/library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script type="text/javascript" src="/www/js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="/recruit/www/library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" href="/recruit/www/library/material-design/flaticon.css">
+    <link rel="stylesheet" type="text/css" href="/recruit/www/css/index.css"/>
+    <link rel="stylesheet" href="/recruit/www/css/main.css">
+    <script type="text/javascript" src="/recruit/www/library/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="/recruit/www/library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="/recruit/www/js/index.js"></script>
 </head>
 <body>
+
 <div data-role="page" id="review">
-        <div data-theme="b" data-role="header" data-position="fixed">
-            <h3>
-                Review
-            </h3>
-            </div>
-        <div data-role="content">
-<div class="ui-grid-solo">
-    <div class="ui-block-b">
-        <p>Candidate Review</p>
+    <div data-role="header" data-position="fixed">
+        <h1>Recruit+</h1>
+        <a href="#" data-icon="back" data-rel="back" class="ui-btn-left">Back</a>
+
+    </div>
+    <!-- header -->
+    <div data-theme="b" data-role="header" data-position="fixed">
+        <h3>
+            Candidate Review
+        </h3>
+    </div>
+    <div role="main" class="ui-content">
+        <form>
+            <input id="filterTable-input" data-type="search" />
+        </form>
+        <table data-role="table" data-mode="columntoggle" id="movie-table" data-filter="true" data-input="#filterTable-input" class="ui-responsive table-stroke" data-column-btn-theme="b" data-column-btn-text="Columns" data-column-popup-theme="a">
+            <thead>
+            <tr>
+                <th data-priority="persist">Name</th>
+                <th data-priority="persist">Score</th>
+                <th data-priority="1">Position</th>
+                <th data-priority="2">Interviewer</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>kdnsk</th>
+                <td>Citizen Kane</td>
+                <td>1941</td>
+                <td>74</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
- <!---->
-            <table data-role="table" id="table-custom-2" data-mode="columntoggle"
-       class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b"
-       data-column-btn-text="Columns to display..." data-column-popup-theme="a">
-    <thead>
-    <tr class = "ui-bar-d">
-        <th>Name</th>
-        <th>Position</th>
-        <th>TI score</th>
-        <th>PI score</th>
-        <th>Total</th>
-        <th>Interviewee</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr><th></th><td></td><td></td><td></td><td></td><td></td></tr>
-    </tbody>
-    </table>
-    </div>
-    </div>
+
+<div data-role="page" id="soloCandidate">
+    hey
+</div>
 </body>
 </html>

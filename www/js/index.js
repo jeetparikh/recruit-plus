@@ -1,29 +1,5 @@
 $(document).on("pageinit", "#mainpage", function () {
-    $(document).on("swipeleft swiperight", "#demo-page", function (e) {
-        var CoreView = function () {
-            this.IP = 'localhost'; //initialize with the IP of your server or the domain name
-        };
-
-        CoreView.prototype.init = function () {
-        };
-
-        CoreView.prototype.showLoader = function (text) {
-            setTimeout(function () {
-                $.mobile.loading('show');
-            }, 1);
-        };
-
-        CoreView.prototype.hideLoader = function (text) {
-            setTimeout(function () {
-                $.mobile.loading('hide');
-            }, 1);
-        };
-
-        CoreView.prototype.getServerBaseUrl = function () {
-            return coreView.IP + '/recruit'
-        };
-
-        var coreView = new CoreView();
+    $(document).on("swipeleft swiperight", "#mainpage", function (e) {
 
         if ($.mobile.activePage.jqmData("panel") !== "open") {
             if (e.type === "swipeleft") {
@@ -33,4 +9,35 @@ $(document).on("pageinit", "#mainpage", function () {
             }
         }
     });
+
+
 });
+var CoreView = function() {
+    this.IP = 'localhost'; //initialize with the IP of your server or the domain name
+    this.storageAvailable = this.checkStorage();
+};
+
+CoreView.prototype.init = function() {
+};
+
+CoreView.prototype.showLoader = function(text) {
+    setTimeout(function(){
+        $.mobile.loading('show');
+    }, 1);
+};
+
+CoreView.prototype.hideLoader = function(text) {
+    setTimeout(function(){
+        $.mobile.loading('hide');
+    }, 1);
+};
+
+CoreView.prototype.getServerBaseUrl = function() {
+    return '/work/recruit-app/recruit/recruit'
+    //return coreView.IP + '/recruit'
+};
+
+CoreView.prototype.checkStorage = function() {
+    return (typeof Storage != 'undefined');
+}
+var coreView = new CoreView();

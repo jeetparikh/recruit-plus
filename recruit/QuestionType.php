@@ -1,17 +1,8 @@
 <?php
-require_once('DBConnect.php');
-class QuestionType
+require_once('RecruitAbstract.php');
+class QuestionType extends RecruitAbstract
 {
-    private $_connectionObject;
-
-    private $_table = 'questionType';
-
-    function __construct()
-    {
-        if (!$this->_connectionObject) {
-            $this->_connectionObject = DBConnect::getInstance();
-        }
-    }
+    private $_table = 'QuestionType';
 
     function getAllQuestionTypes()
     {

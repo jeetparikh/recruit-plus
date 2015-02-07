@@ -3,6 +3,9 @@ require_once('QuestionList.php');
 require_once('QuestionType.php');
 require_once('QuestionLevel.php');
 
+header('content-type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+
 $questionTypeId = isset($_GET['typeId']) ? $_GET['typeId'] : null;
 $levelIds = isset($_GET['levelIds']) ? $_GET['levelIds'] : array();
 

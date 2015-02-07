@@ -1,17 +1,8 @@
 <?php
-require_once('DBConnect.php');
-class QuestionLevel
+require_once('RecruitAbstract.php');
+class QuestionLevel extends RecruitAbstract
 {
-    private $_connectionObject;
-
-    private $_table = 'questionLevel';
-
-    function __construct()
-    {
-        if (!$this->_connectionObject) {
-            $this->_connectionObject = DBConnect::getInstance();
-        }
-    }
+    private $_table = 'QuestionLevel';
 
     function getAllquestionLevels()
     {
@@ -19,10 +10,11 @@ class QuestionLevel
 
         $query = "SELECT * from ". $this->_table;
         $questionLevels = $this->_connectionObject->query($query);
+        $resp['totalCount'] = $questionLevels->num_rows;
 
         if($questionLevels) {
             while($questionLevel = $questionLevels->fetch_assoc()) {
-                $resp[$questionLevel['id']] = $questionLevel;
+                $resp['levels'][$questionLevel['id']] = $questionLevel;
             }
         }
         return $resp;

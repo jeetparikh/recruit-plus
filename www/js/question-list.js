@@ -1,10 +1,30 @@
 var Question = function() {
-    this.$questionBlock = $('#question-block');
+    this.$questionBlock = $('#question-list #question-block');
     this.questionList = {};
     this.questionType = {};
     this.questionLevels = {};
     this.questionTypeId = undefined;
     this.levelTypeIds = [];
+};
+
+Question.prototype.primaryFilterChangeHandler = function(event) {
+    questionInstance.levelTypeIds = [];
+    $.each($(event.currentTarget).find('input[type="checkbox"]'), function(a, b){
+        if($(this).is(':checked')) {
+            questionInstance.levelTypeIds.push($(this).data('id'));
+        }
+    });
+};
+
+Question.prototype.applyFilterClickHandler = function(event) {
+    event.preventDefault();
+    $(event.currentTarget).parents('#filter-panel').panel('close');
+    return false;
+};
+
+Question.prototype.questionCardClickHandler = function(event) {
+    questionInstance.currentQuestion = questionInstance.questionList[$(event.currentTarget).data('id')];
+    $.mobile.changePage( $(event.currentTarget).attr('href'), { transition: "slide"});
 };
 
 Question.prototype.bindEvents = function() {
@@ -13,19 +33,16 @@ Question.prototype.bindEvents = function() {
         questionInstance.fetchQuestionList();
     });
 
+    $('ul#question-block').on('click', 'li a', function(event) {
+        questionInstance.questionCardClickHandler(event);
+    });
+
     $('#filter-panel').on('change', '#primary-filter-block', function(event) {
-        questionInstance.levelTypeIds = [];
-        $.each($(event.currentTarget).find('input[type="checkbox"]'), function(a, b){
-            if($(this).is(':checked')) {
-                questionInstance.levelTypeIds.push($(this).data('id'));
-            }
-        });
+            questionInstance.primaryFilterChangeHandler(event);
     }).on('panelbeforeclose', function() {
             questionInstance.fetchQuestionList();
-    }).on('click', '#apply-filter', function(event) {
-            event.preventDefault();
-            $(event.currentTarget).parents('#filter-panel').panel('close');
-            return false;
+    }).on('tap', '#apply-filter', function(event) {
+            questionInstance.applyFilterClickHandler(event);
     });
 };
 
@@ -53,7 +70,7 @@ Question.prototype.fetchQuestionList = function(data) {
             if(resp) {
                 questionInstance.questionList = resp.questionList;
                 questionInstance.questionType = resp.questionTypes;
-                questionInstance.questionLevels = resp.questionLevels;
+                questionInstance.questionLevels = resp.questionLevels.levels;
                 questionInstance.questionTypeId = resp.questionTypeId;
                 questionInstance.renderNavTabs();
                 questionInstance.renderQuestionCards();
@@ -70,26 +87,32 @@ Question.prototype.fetchQuestionList = function(data) {
 
 Question.prototype.renderQuestionCards = function() {
     this.$questionBlock.empty();
-    var html = '';
+
     $.each(this.questionList, function(id, question) {
         var answer = 'Answer not specified';
         if(question.answer) {
             answer = question.answer;
         }
-        html += '<li><a>' +
-                '<h3><em>' + question.type +'</em></h3>' +
-                '<p> <strong>Q. </strong>' + question.question + '</p>' +
-                '<p><strong> > </strong>' + answer + '</p>' +
-                '<p class="ui-li-aside">' + question.level +'</p>' +
-                '</a></li>';
+
+        questionInstance.$questionBlock
+            .append(
+                '<li>' +
+                    '<a href="#question-details" data-id="' + id +'">' +
+                        '<h3><em>' + question.type +'</em></h3>' +
+                        '<p> <strong>Q. </strong>' + question.question + '</p>' +
+                        '<p><strong> &gt; </strong>' + answer + '</p>' +
+                        '<p class="ui-li-aside">' + question.level +'</p>' +
+                    '</a>' +
+                '</li>'
+            );
     });
-    this.$questionBlock.html(html);
+
     this.$questionBlock.listview('refresh');
     this.$questionBlock.trigger('updatelayout');
 };
 
 Question.prototype.renderNavTabs = function() {
-    var $navTab = $('div#question-types-tab');
+    var $navTab = $('#question-list div#question-types-tab');
     $navTab.empty();
     var cssClass = '';
 
@@ -98,7 +121,7 @@ Question.prototype.renderNavTabs = function() {
     }
     var html =  '<div data-role="navbar">' +
                 '<ul id="types">' +
-                '<li>' +
+                '<li class="tab-type">' +
                 '<a href="#" class="question-type' + cssClass + '">All</a>' +
                 '</li>';
 
@@ -107,7 +130,7 @@ Question.prototype.renderNavTabs = function() {
         if(id == questionInstance.questionTypeId) {
             cssClass = ' ui-btn-active';
         }
-        html += '<li>' +
+        html += '<li class="tab-type">' +
                 '<a class="question-type' + cssClass +'" data-id="' + id +'">' +
                 type.type +
                 '</a></li>';
@@ -118,6 +141,10 @@ Question.prototype.renderNavTabs = function() {
     $navTab
         .append(html)
             .enhanceWithin();
+//    $('.tab-type').css({
+//        "width": "12% !important",
+//        "clear": "none !important"
+//    });
 };
 
 Question.prototype.renderFilterBlock = function() {
@@ -137,9 +164,28 @@ Question.prototype.renderFilterBlock = function() {
             .controlgroup("refresh");
 };
 
+Question.prototype.renderCompleteQuestion = function() {
+    
+    $('#complete-question').html('<p> #' + questionInstance.currentQuestion.id + ' ' + questionInstance.currentQuestion.question +'</p>' +
+        '<p><strong>Type: </strong>' + questionInstance.currentQuestion.type + '</p>' +
+        '<p><strong>Level: </strong>' + questionInstance.currentQuestion.level + '</p>');
+    
+    $('#complete-answer').html('<h3><em>Answer/Hint</em></h3><p>' + 
+        questionInstance.currentQuestion.answer +'</p>');
+    
+    $('#complete-keyword-list').html('<h4><em>Keywords</em></h4><p>' + 
+        questionInstance.currentQuestion.keywords  +'</p>');
+    
+};
 var questionInstance = new Question();
 
 $('#question-list').on('pagecreate', function() {
     questionInstance.fetchQuestionList();
     questionInstance.bindEvents();
+});
+
+$(document).on('pagecontainerbeforeshow', function(event, data) {
+    if(data.toPage[0].id == 'question-details') {
+        questionInstance.renderCompleteQuestion();
+    }
 });
