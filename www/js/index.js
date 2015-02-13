@@ -1,19 +1,18 @@
-$(document).on("pageinit", "#mainpage", function () {
-    $(document).on("swipeleft swiperight", "#mainpage", function (e) {
-
-        if ($.mobile.activePage.jqmData("panel") !== "open") {
-            if (e.type === "swipeleft") {
-                $("#right-panel").panel("open");
-            } else if (e.type === "swiperight") {
-                $("#left-panel").panel("open");
-            }
-        }
+$(document).on("pageinit", "#home", function () {
+    $("#panelOpen").click(function(){
+        $("#left-panel").panel("open");
+    });
+    $("#home").on("swiperight", "#home", function (e) {
+        $("#left-panel").panel("open");
     });
 
-
+    $(document).on("swiperight", "#home", function (e) {
+        $("#left-panel").panel("open");
+    });
 });
+
 var CoreView = function() {
-    this.IP = 'localhost'; //initialize with the IP of your server or the domain name
+    this.IP = 'http://dev.inknowledge.net'; //initialize with the IP of your server or the domain name
     this.storageAvailable = this.checkStorage();
 };
 
@@ -33,11 +32,12 @@ CoreView.prototype.hideLoader = function(text) {
 };
 
 CoreView.prototype.getServerBaseUrl = function() {
-    return '/work/recruit-app/recruit/recruit'
-    //return coreView.IP + '/recruit'
+    return coreView.IP + '/sandbox/jeet/recruit'
 };
 
 CoreView.prototype.checkStorage = function() {
     return (typeof Storage != 'undefined');
 }
 var coreView = new CoreView();
+
+

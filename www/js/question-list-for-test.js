@@ -1,12 +1,15 @@
 var QuestionTest = function() {
+
+};
+
+QuestionTest.prototype.bindVariables = function() {
     this.$questionBlock = $('#question-list-for-test #question-block');
     this.questionList = {};
     this.questionType = {};
     this.questionLevels = {};
     this.questionTypeId = undefined;
     this.levelTypeIds = [];
-    this.scoreKeeper = {ids: [], scores: [], scoreByType: {}, totalScore: 0};
-    this.candidateDetails = {name: 'jeet', email: 'abc@gmail.com', position: 'Jr Developer', interviewer: 'abc@ink.com'};
+    this.scoreKeeper = {ids: [], scores: [], scoreByType: {}, totalScore: 0, outOf: 0};
 };
 
 QuestionTest.prototype.primaryFilterChangeHandler = function(event) {
@@ -25,7 +28,7 @@ QuestionTest.prototype.applyFilterClickHandler = function(event) {
 };
 
 QuestionTest.prototype.bindEvents = function() {
-    $('#question-list-for-test #question-types-tab').on('click', 'a' ,function(event) {
+    $('#question-list-for-test #question-types-tab').on('vclick', 'a' ,function(event) {
         questionTestInstance.questionTypeId = $(event.currentTarget).data('id');
         questionTestInstance.fetchQuestionList();
     });
@@ -33,10 +36,10 @@ QuestionTest.prototype.bindEvents = function() {
     $('#filter-panel').on('change', '#primary-filter-block', function(event) {
         questionTestInstance.primaryFilterChangeHandler(event);
     }).on('panelbeforeclose', function() {
-            questionTestInstance.fetchQuestionList();
-        }).on('tap', '#apply-filter', function(event) {
-            questionTestInstance.applyFilterClickHandler(event);
-        });
+        questionTestInstance.fetchQuestionList();
+    }).on('tap', '#apply-filter', function(event) {
+        questionTestInstance.applyFilterClickHandler(event);
+    });
 
     questionTestInstance.$questionBlock.on('change', 'input[type="radio"]', function(event) {
         var $parent = $(this).parents('li');
@@ -52,8 +55,8 @@ QuestionTest.prototype.bindEvents = function() {
             );
         });
     }).on('click', '.change-score-button', function(event) {
-            questionTestInstance.changeScoreClickHandler(event);
-        });
+        questionTestInstance.changeScoreClickHandler(event);
+    });
 
     $('#question-list-for-test #submit-test-button').on('click', function(event) {
         questionTestInstance.submitTestResult(event);
@@ -63,8 +66,8 @@ QuestionTest.prototype.bindEvents = function() {
 
 QuestionTest.prototype.serializeData = function() {
     return {
-        'typeId': questionTestInstance.questionTypeId,
-        'levelIds' : questionTestInstance.levelTypeIds
+        typeId: questionTestInstance.questionTypeId,
+        levelIds: questionTestInstance.levelTypeIds
     }
 };
 
@@ -121,13 +124,13 @@ QuestionTest.prototype.renderQuestionCards = function() {
             .append(
                 '<li data-icon="false">' +
 //                    '<a href="#question-details" data-id="' + id +'">' +
-                        '<h3><em>' + question.type +'</em></h3>' +
-                        '<p><strong>Q. </strong>' + question.question + '</p>' +
-                        '<p><strong> &gt; </strong>' + answer + '</p>' +
-                        '<p class="ui-li-aside">' + question.level +'</p>' +
+                    '<h3><em>' + question.type +'</em></h3>' +
+                    '<p><strong>Q. </strong>' + question.question + '</p>' +
+                    '<p><strong> &gt; </strong>' + answer + '</p>' +
+                    '<p class="ui-li-aside">' + question.level +'</p>' +
 //                    '</a>' +
-                '</li>' +
-                '<li data-role="list-divider" data-question-type-id = "' + question.questionTypeId + '" data-question-id="' + id +'">' + scoreHtml + '</li>'
+                    '</li>' +
+                    '<li data-role="list-divider" data-question-type-id = "' + question.questionTypeId + '" data-question-id="' + id +'">' + scoreHtml + '</li>'
             ).enhanceWithin();
     });
 
@@ -144,10 +147,10 @@ QuestionTest.prototype.renderNavTabs = function() {
         cssClass = ' ui-btn-active';
     }
     var html =  '<div data-role="navbar">' +
-                    '<ul id="types">' +
-                        '<li class="tab-type">' +
-                            '<a href="#" class="question-type' + cssClass + '">All</a>' +
-                        '</li>';
+        '<ul id="types">' +
+        '<li class="tab-type">' +
+        '<a href="#" class="question-type' + cssClass + '">All</a>' +
+        '</li>';
 
     $.each(this.questionType, function(id, type) {
         cssClass = '';
@@ -155,17 +158,17 @@ QuestionTest.prototype.renderNavTabs = function() {
             cssClass = ' ui-btn-active';
         }
         html += '<li class="tab-type">' +
-                    '<a class="question-type' + cssClass +'" data-id="' + id +'">' +
-                        type.type +
-                    '</a>' +
-                '</li>';
+            '<a class="question-type' + cssClass +'" data-id="' + id +'">' +
+            type.type +
+            '</a>' +
+            '</li>';
     });
 
     html += '</ul></div>';
 
     $navTab
         .append(html)
-            .enhanceWithin();
+        .enhanceWithin();
 //    $('.tab-type').css({
 //        "width": "12% !important",
 //        "clear": "none !important"
@@ -182,9 +185,9 @@ QuestionTest.prototype.renderFilterBlock = function() {
         }
         $primaryFilter
             .controlgroup( "container" )
-                .append('<label for="primary-filter-' + level.level + '">' +
-                            '<input name="primary-filter-' + level.level + '" type="checkbox" data-id="' + id + '"' + checked +'>' + level.level +
-                        '</label>');
+            .append('<label for="primary-filter-' + level.level + '">' +
+                '<input name="primary-filter-' + level.level + '" type="checkbox" data-id="' + id + '"' + checked +'>' + level.level +
+                '</label>');
     });
     $primaryFilter
         .enhanceWithin()
@@ -195,11 +198,9 @@ QuestionTest.prototype.updateScore = function(context, questionId, typeId, score
     $(context).parents('form').replaceWith(questionTestInstance.getHtmlForQuestionMarked(scoreValue));
 
     if(coreView.storageAvailable) {
-        if(sessionStorage.length) {
-            questionTestInstance.scoreKeeper =
-                JSON.parse(sessionStorage.getItem('recruitScoreTracker')) ||
-                questionTestInstance.scoreKeeper;
-        }
+        questionTestInstance.scoreKeeper =
+            JSON.parse(sessionStorage.getItem('recruitScoreTracker'))
+                || questionTestInstance.scoreKeeper;
     }
 
     var idIndex = $.inArray(questionId, questionTestInstance.scoreKeeper.ids);
@@ -215,7 +216,9 @@ QuestionTest.prototype.updateScore = function(context, questionId, typeId, score
 
         questionTestInstance.scoreKeeper.scores.push(parseInt(scoreValue,10));
         questionTestInstance.scoreKeeper.totalScore = parseInt(questionTestInstance.scoreKeeper.totalScore, 10)
-                                                      + parseInt(scoreValue, 10);
+            + parseInt(scoreValue, 10);
+        questionTestInstance.scoreKeeper.outOf =  parseInt(questionTestInstance.scoreKeeper.outOf, 10) + 5;
+
     }else {
         //this could be inefficient but its practical use case is very low. And also the number of questions to loop
         //will be also be low
@@ -230,7 +233,7 @@ QuestionTest.prototype.updateScore = function(context, questionId, typeId, score
         var initScore = questionTestInstance.scoreKeeper.scores[idIndex];
         questionTestInstance.scoreKeeper.scores[idIndex] = parseInt(scoreValue,10);
         questionTestInstance.scoreKeeper.totalScore = parseInt(questionTestInstance.scoreKeeper.totalScore, 10)
-                                                        + parseInt(scoreValue,10) - initScore;
+            + parseInt(scoreValue,10) - initScore;
     }
 
     //dump the json to sessionStorage
@@ -249,25 +252,25 @@ QuestionTest.prototype.getTestData = function() {
 
 QuestionTest.prototype.getHtmlForQuestionMarked = function(score) {
     return '<button class="button-score-checked ui-btn ui-mini ui-shadow ui-corner-all ui-btn-icon-left ui-icon-check ui-btn-inline">'+ score + '</button>' +
-            '<button class="change-score-button ui-btn ui-mini ui-shadow ui-corner-all ui-btn-icon-left ui-icon-edit ui-btn-inline"> Change</button>';
+        '<button class="change-score-button ui-btn ui-mini ui-shadow ui-corner-all ui-btn-icon-left ui-icon-edit ui-btn-inline"> Change</button>';
 };
 
 QuestionTest.prototype.getHtmlForScoreBlock = function() {
     return '<form>' +
-                '<fieldset class="score-marker" data-role="controlgroup" data-type="horizontal" data-mini="true">' +
-                    '<label for="score-zero">' +
-                    '<input  type="radio" name="score-number" value="0">0</label>' +
-                    '<label for="score-one">' +
-                    '<input  type="radio" name="score-number" value="1">1</label>' +
-                    '<label for="score-two">' +
-                    '<input  type="radio" name="score-number" value="2">2</label>' +
-                    '<label for="score-three">' +
-                    '<input  type="radio" name="score-number" value="3">3</label>' +
-                    '<label for="score-four">' +
-                    '<input  type="radio" name="score-number" value="4">4</label>' +
-                    '<label for="score-five">' +
-                    '<input  type="radio" name="score-number" value="5">5</label>' +
-                '</fieldset>' +
+        '<fieldset class="score-marker" data-role="controlgroup" data-type="horizontal" data-mini="true">' +
+        '<label for="score-zero">' +
+        '<input  type="radio" name="score-number" value="0">0</label>' +
+        '<label for="score-one">' +
+        '<input  type="radio" name="score-number" value="1">1</label>' +
+        '<label for="score-two">' +
+        '<input  type="radio" name="score-number" value="2">2</label>' +
+        '<label for="score-three">' +
+        '<input  type="radio" name="score-number" value="3">3</label>' +
+        '<label for="score-four">' +
+        '<input  type="radio" name="score-number" value="4">4</label>' +
+        '<label for="score-five">' +
+        '<input  type="radio" name="score-number" value="5">5</label>' +
+        '</fieldset>' +
         '</form>';
 };
 
@@ -277,11 +280,9 @@ QuestionTest.prototype.changeScoreClickHandler = function(event) {
 
 QuestionTest.prototype.submitTestResult = function(event) {
     if(coreView.storageAvailable) {
-        questionTestInstance.scoreKeeper = JSON.parse(sessionStorage.getItem('recruitScoreTracker'))
-                                            || questionTestInstance.scoreKeeper;
+        questionTestInstance.scoreKeeper = JSON.parse(sessionStorage.getItem('recruitScoreTracker'));
 
-        questionTestInstance.candidateDetails = JSON.parse(sessionStorage.getItem('recruitCandidateDetails'))
-                                            || questionTestInstance.candidateDetails;
+        questionTestInstance.candidateDetails = JSON.parse(sessionStorage.getItem('candidateDetails'));
     }
 
 
@@ -294,14 +295,34 @@ QuestionTest.prototype.submitTestResult = function(event) {
             coreView.showLoader();
         },
         complete: function(a, b) {
+
+        },
+        success: function(resp){
             if(coreView.storageAvailable) {
                 //clear current candidate information from the session storage
                 sessionStorage.clear();
             }
-            // coreView.hideLoader();
-        },
-        success: function(resp){
-            //window.plugins.toast.showShortCenter('Added successfully!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+            //initialize the variables to default
+            questionTestInstance.scoreKeeper = {ids: [], scores: [], scoreByType: {}, totalScore: 0};
+            questionTestInstance.candidateDetails = {name: '', email: '', position: '', interviewer: ''};
+            coreView.hideLoader();
+            if(resp.candidateId) {
+
+//                $('#complete-test').popup('close');
+//                $(':mobile-pagecontainer').pagecontainer('change', 'index.html', {
+//                    changeHash: false,
+//                    role: 'page'
+//                });
+
+                window.setTimeout(function() {
+                    $('a#link-to-review-page')[0].click();
+                }, 500);
+
+
+//                $( ":mobile-pagecontainer" ).pagecontainer( "change", "index.html");
+//                window.plugins.toast.showShortCenter('Test score submitted successfully!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+            }
+            coreView.hideLoader();
         },
         error: function(err) {
             coreView.hideLoader();
@@ -311,9 +332,45 @@ QuestionTest.prototype.submitTestResult = function(event) {
     return false;
 };
 
+QuestionTest.prototype.addCandidateInformation = function(event) {
+    coreView.showLoader();
+    var data = $('form#begin-test-form').serializeArray();
+
+    questionTestInstance.testStarted = true;
+
+    $.each(data, function(idx, details) {
+        questionTestInstance.candidateDetails[details.name] = details.value;
+    });
+
+    if(coreView.storageAvailable) {
+        sessionStorage.setItem('testStarted', 'true');
+        sessionStorage.setItem('candidateDetails', JSON.stringify(questionTestInstance.candidateDetails));
+    }
+
+    $(':mobile-pagecontainer').pagecontainer('change', '#question-list-for-test', {
+        changeHash: false, //setting to false since we dont want to navigate to this page on click of back button
+        transition: 'flip'
+    });
+
+    coreView.hideLoader();
+    return false;
+};
+
+QuestionTest.prototype.bindSubmitFormEvent = function() {
+    $('button#start-test-button').on('click', function(event) {
+        questionTestInstance.addCandidateInformation(event);
+        return false;
+    });
+};
+
 var questionTestInstance = new QuestionTest();
 
+$('#begin-test').on('pagecreate', function() {
+    questionTestInstance.candidateDetails = {name: '', email: '', position: '', interviewer: ''};
+    questionTestInstance.bindSubmitFormEvent();
+});
 $('#question-list-for-test').on('pagecreate', function() {
+    questionTestInstance.bindVariables();
     questionTestInstance.fetchQuestionList();
     questionTestInstance.bindEvents();
 });
