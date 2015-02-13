@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+</head>
+<body>
+<div data-role="page" id="review-interviewers-list">
+    <div data-theme="b" data-role="header" data-position="fixed">
+        <h3>
+            Interviewer Review
+        </h3>
+        <a href="../index.html" data-icon="back" data-rel="back" class="ui-btn-left">Back</a>
+    </div>
+    <div role="main" class="ui-content">
+        <form>
+            <input id="filterTable-input" data-type="search" />
+        </form>
+        <table data-role="table" data-mode="columntoggle" id="interviewer-table" data-filter="true" data-input="#filterTable-input" class="ui-responsive table-stripe" data-column-btn-theme="b" data-column-btn-text="Columns" data-column-popup-theme="a">
+            <thead class="ui-bar-a">
+            <tr>
+                <th data-priority="persist">Name</th>
+                <th data-priority="persist">Candidates interviewed</th>
+                <th>Max Score</th>
+                <th>Min Score</th>
+                <th data-priority="persist"></th>
+            </tr>
+            </thead>
+            <tbody id="interviewer-list-rows">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="../library/jquery.jqplot.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../library/jquery.mobile.flatui.min.css">
+<link rel="stylesheet" href="../library/material-design/flaticon.css">
+<script type="text/javascript" src="../library/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="../library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="../library/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="../library/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="../js/review-interviewer.js"></script>
+<script type="text/javascript" src="../js/index.js"></script>
+<style type="text/css">
+    #interviewer-table tbody tr{
+        background-color: #FAFAF8;
+    }
+    #interviewer-table tbody tr:hover{
+        background-color: #D6D6C2;
+    }
+    #interviewer-table tbody td:hover{
+        cursor:pointer;
+    }
+</style>
+</body>
+</html>

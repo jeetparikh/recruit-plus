@@ -1,77 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
 
+    <title>Simplify hiring process!!</title>
+</head>
+<body>
+<div data-role="page" id="home">
+    <div data-theme="b" data-role="header" data-position="fixed">
+        <h3>
+            Recruit+
+        </h3>
+        <a href="#" data-icon="bullets" data-iconpos="notext"
 
-        <link rel="stylesheet" type="text/css" href="library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" />
-        <link rel="stylesheet" href="library/material-design/flaticon.css">
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <link rel="stylesheet" href="css/main.css">
-        <script type="text/javascript" src="library/jquery-1.11.2.js"></script>
-        <script type="text/javascript" src="library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
-        <!--<script type="text/javascript" src="cordova.js"></script>-->
-        <script type="text/javascript" src="js/index.js"></script>
-        <title>Simplify hiring process!!</title>
-    </head>
-    <body>
-        <div data-role="page" id="home">
-            <div data-theme="b" data-role="header" data-position="fixed">
-                <h3>
-                    Recruit+
-                </h3>
-                <a href="#left-panel" data-icon="carat-r" data-iconpos="notext" data-shadow="false"
-                   data-iconshadow="false"
-                   class="ui-nodisc-icon"></a>
-            </div>
-            <div role="main" class="ui-content">
-                <div class="ui-bar ui-bar-a">
-                    <p id="intro">A comprehensive solution to our recruitment needs!</p>
+           class="ui-nodisc-icon" id="panelOpen"></a>
+    </div>
+    <div role="main" class="ui-content">
+            
+        <div class="ui-bar ui-bar-a">
+            <p id="intro">A comprehensive solution to our recruitment needs!</p>
+        </div>
+        <div class="ui-body ui-body-b section-divider">
+            <div class="ui-grid-solo">
+                <div class="ui-block-a">
+                    <p id="startPara">Conduct a test by browsing through the questions and marking the answers
+                        based on the candidate's response</p>
+
+                    <!--I was unable to put an image for some silly reason, will figure it out later-->
+                    <a data-ajax="false" href="pages/question-list-for-test.html" data-transition="flip"
+                       class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-icon-arrow-r"><i
+                            class="flaticon-underline6"> Start Test</i></a>
                 </div>
-                <div class="ui-body ui-body-b section-divider">
-                    <div class="ui-grid-solo">
-                        <div class="ui-block-a">
-                            <p id="startPara">Start conducting a test by browsing through the questions and marking the answers based on the candidates response</p>
-
-                            <!--I was unable to put an image for some silly reason, will figure it out later-->
-                            <a data-ajax="false" href="pages/question-list-for-test.html" data-transition="flip" class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-icon-arrow-r"><i class = "flaticon-underline6"> Start Test</i></a>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="ui-body ui-body-a section-divider">
-                    <div class="ui-grid-solo">
-                        <div class="ui-block-a"><!--The icon thing isn't working... Didn't devote much time to it, just look into it -->
-                            <p id ="reviewPara"><span class="ui-icon-info"> View all the candidates responses and send email on the go. You can send email to both the team and candidate</span></p>
-                            <a href="pages/review.html" data-role="button" class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-icon-arrow-r" data-transition="flip"><i class="flaticon-show5"> View responses</i></a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div data-role="panel" id="left-panel" data-theme="b">
-                <br/><br/>
-                <ul data-role="listview">
-                    <li data-icon="bars"><a data-ajax="false" href="pages/question-list.html" data-transition="flip">Browse Questions</a></li>
-                    <li data-icon="plus"><a href="#add" data-transition="flip">Add Questions</a></li>
-                    <li data-icon="bullets"><a href="a.html" data-transition="flip">Review Interviewers</a></li>
-                    <li data-icon="user"><a href="#" data-transition="flip">View Candidates</a></li>
-                    <li data-icon="info"><a href="pages/About-us.html" data-transition="flip">About Us</a></li>
-                </ul>
-
-
-                <!--<a href="#" data-rel="close"-->
-                   <!--class="ui-btn ui-corner-all ui-shadow ui-mini ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-right"></a>-->
-
-            </div>
-            <div data-theme="b" data-role="footer" data-position="fixed">
-                <h1>Copyright 2015 - Juggernauts</h1>
             </div>
         </div>
-    </body>
+        <div class="ui-body ui-body-b section-divider">
+            <div class="ui-grid-solo">
+                <div class="ui-block-g">
+                    <!--The icon thing isn't working... Didn't devote much time to it, just look into it -->
+                    <p id="reviewPara"><span class="ui-icon-info"> View all the candidates responses and send email on the go.</span>
+                    </p>
+                    <a data-ajax="false" href="pages/review.html" data-role="button"
+                       class="ui-btn ui-btn-corner-all ui-btn-icon-right ui-icon-arrow-r" data-transition="flip"><i
+                            class="flaticon-show5"> Review Candidates </i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div data-theme="b" data-role="footer" data-position="fixed">
+        <h1>Copyright 2015 - Juggernauts</h1>
+    </div>
+    <div data-role="panel" id="left-panel" data-swipe-close="true" data-display="push">
+        <br/><br/>
+        <ul data-role="listview" data-theme="a">
+            <li data-icon="bars"><a data-ajax="false" href="pages/question-list.html" data-transition="flip">Browse
+                Questions</a></li>
+            <li data-icon="user"><a data-ajax="false" href="pages/interviewer.html" data-transition="flip">Review
+                Interviewers</a></li>
+            <li data-icon="info"><a data-ajax="false" href="pages/About-us.html" data-transition="flip">About Us</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<link rel="stylesheet" href="library/material-design/flaticon.css">
+<link rel="stylesheet" type="text/css" href="css/index.css"/>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="library/jquery.mobile.flatui.min.css">
+<script type="text/javascript" src="library/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="library/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+</body>
 </html>
