@@ -10,9 +10,9 @@ if(empty($_POST['candidateDetails']) || empty($_POST['scoreDetails'])) {
 }
 
 $candidate = new CandidateDetails();
-$candidate->add($_POST['candidateDetails'], $_POST['scoreDetails']);
 
-$resp = array();
+$resp = array(
+    'candidateId' => $candidate->addDetails($_POST['candidateDetails'], $_POST['scoreDetails'])
+);
 
-$resp = json_encode($resp);
-echo $_REQUEST['callback'].'('.$resp.')';
+echo json_encode($resp);
