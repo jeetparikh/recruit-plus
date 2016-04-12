@@ -8,10 +8,10 @@ final class DBConnect
     public static function getInstance()
     {
         $dbConfig = array(
-            'database' => 'ink_hiring',
-            'host' => 'dev.inknowledge.net',
-            'username' => 'mentis',
-            'password' => 'D3v3l@dm1n'
+            'database' => '',
+            'host' => '',
+            'username' => '',
+            'password' => ''
         );
         if(static::$_instance == null)
         {
