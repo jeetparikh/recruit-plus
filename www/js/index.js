@@ -37,7 +37,7 @@ CoreView.prototype.getServerBaseUrl = function() {
 
 CoreView.prototype.checkStorage = function() {
     return (typeof Storage != 'undefined');
-}
+};
 var coreView = new CoreView();
 
 
